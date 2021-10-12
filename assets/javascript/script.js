@@ -5,11 +5,13 @@ var timeEl = document.getElementById("timer");
 var answersDiv = document.getElementById("answers-here")
 var rules = document.getElementById("rules")
 var yourAnswer = document.getElementById("your-answer")
+var usernames = JSON.parse(localStorage.getItem("usernames")) || [];
 
 // Global variables
 var questionIdx = 0;
 var currentQuestion;
 var secondsLeft = 30;
+var storageScore = localStorage.getItem("score");
 var allQuestions = [
     { 
         title: "what is 9 + 10?",
@@ -51,13 +53,21 @@ function startGame(){
         secondsLeft--;
         timeEl.textContent = "Time: " + secondsLeft;
   
-        if(secondsLeft === 0) {
+        if(secondsLeft <= 0) {
             clearInterval(timerInterval);
-            window.confirm("Times Up!");
+            var nameScore = window.prompt("Name and Score:");
+            usernames.push(nameScore);
             console.log(secondsLeft)
+            localStorage.setItem("usernames", JSON.stringify(usernames));
             endGame()
       }
-  
+        else(allQuestions === false)
+            // clearInterval(timerInterval);
+            // var nameScore = window.prompt("Name and Score:");
+            // usernames.push(nameScore);
+            // console.log(secondsLeft)
+            // localStorage.setItem(usernames, JSON.stringify(usernames));
+            endGame()
     }, 1000);
   
 
